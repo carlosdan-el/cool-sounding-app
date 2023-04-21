@@ -9,6 +9,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<AppContext>();
     var pair = appState.current;
+    IconData icon = appState.favorites.contains(pair)
+        ? Icons.favorite
+        : Icons.favorite_border;
 
     return Scaffold(
         body: SafeArea(
@@ -17,12 +20,22 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('A random AWESOME name:'),
-            SizedBox(height: 10),
+            SizedBox(height: 8),
             BigCard(pair: pair),
-            SizedBox(height: 10),
-            ElevatedButton(
-                onPressed: () => appState.getNextWord(),
-                child: Text('Generate'))
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                    onPressed: () => appState.toggleFavorite(),
+                    icon: Icon(icon),
+                    label: Text('Like')),
+                SizedBox(width: 16),
+                ElevatedButton(
+                    onPressed: () => appState.getNextWord(),
+                    child: Text('Generate')),
+              ],
+            )
           ],
         ),
       ),

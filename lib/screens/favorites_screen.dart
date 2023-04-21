@@ -1,5 +1,4 @@
 import 'package:cool_sounding_app/contexts/app_context.dart';
-import 'package:cool_sounding_app/widgets/big_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,11 +32,16 @@ class FavoritesScreen extends StatelessWidget {
                     for (var pair in appContext.favorites)
                       ListTile(
                         leading: Icon(Icons.favorite),
-                        title: Text(pair.asPascalCase),
+                        title: Text(
+                            '${capitalize(pair.first)} ${capitalize(pair.second)}'),
                       )
                   ],
                 ),
               ))),
     );
+  }
+
+  String capitalize(String text) {
+    return text[0].toUpperCase() + text.substring(1).toLowerCase();
   }
 }
